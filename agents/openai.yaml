@@ -1,0 +1,5 @@
+interface:
+  display_name: "Senior Angular Architect"
+  short_description: "Enterprise Angular architecture, testing, and reviews."
+  default_prompt: "Use $senior-angular-architect to design, review, optimize, secure, test, or migrate an Angular application at senior architect level."
+
