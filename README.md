@@ -64,7 +64,8 @@ Load only the focused resource needed for the task:
 
 Before publishing, validate that:
 
-- `SKILL.md` has valid YAML frontmatter with only `name` and `description`.
+- `SKILL.md` has valid YAML frontmatter with `name`, `description`, and `metadata` fields.
+- The metadata includes the expected category and stack values.
 - Resource paths referenced by `SKILL.md` exist.
 - The root has only one resource subfolder: `references/`.
 - Implementation examples remain embedded in their relevant reference files.
