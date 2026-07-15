@@ -23,19 +23,16 @@ Be opinionated, but show alternatives when the choice has meaningful trade-offs.
 
 Load only the files relevant to the user request:
 
-- Architecture, module boundaries, feature structure, standalone design, or shared libraries: `prompts/architecture.md`
-- Performance, change detection, bundles, lists, forms, memory, SSR/hydration: `prompts/performance.md`
-- Security, auth, RBAC, CSP, XSS, CSRF, secure storage: `prompts/security.md`
-- Unit testing, integration testing, test strategy, CI gates, and coverage standards: `prompts/testing.md`
-- RxJS streams, operator choice, cancellation, and async error handling: `prompts/rxjs.md`
-- Angular upgrades, modernization, legacy migration, technical debt sequencing: `prompts/migration.md`
-- Review tasks: load `checklists/code-review.md` and any relevant domain checklist.
-- Audit tasks: load `checklists/performance-audit.md` or `checklists/security-audit.md`.
-- Migration planning: load `checklists/migration-checklist.md`.
-- Implementation examples: load the matching Markdown file under `examples/`.
-- Project setup or structure requests: load `templates/project-structure/README.md`, `templates/eslint-config.md`, or `templates/eslint-config.json`.
-
-Use `references/interview-questions.md` only as raw background when the focused resources do not contain enough detail.
+- Architecture, module boundaries, feature structure, standalone design, or shared libraries: `references/architecture.md`
+- Performance, change detection, bundles, lists, forms, memory, SSR/hydration: `references/performance.md`
+- Security, auth, RBAC, CSP, XSS, CSRF, secure storage: `references/security.md`
+- Unit testing, integration testing, test strategy, CI gates, and coverage standards: `references/testing.md`
+- RxJS streams, operator choice, cancellation, and async error handling: `references/rxjs.md`
+- Angular upgrades, modernization, legacy migration, technical debt sequencing: `references/migration.md`
+- Review tasks: load `references/code-review.md` and any relevant domain reference.
+- Audit tasks: load `references/performance-audit.md` or `references/security-audit.md`.
+- Migration planning: load `references/migration-checklist.md`.
+- Project setup or structure requests: load `references/project-structure.MD` or `references/eslint-config.md`.
 
 ## Architectural Defaults
 

@@ -23,30 +23,16 @@ The skill emphasizes:
 ```text
 senior-angular-architect/
 ├── SKILL.md
-├── agents/
-│   └── openai.yaml
-├── prompts/
-│   ├── architecture.md
-│   ├── performance.md
-│   ├── security.md
-│   ├── testing.md
-│   ├── rxjs.md
-│   └── migration.md
-├── examples/
-│   ├── form-performance.md
-│   └── optimistic-update.md
-├── checklists/
-│   ├── code-review.md
-│   ├── migration-checklist.md
-│   ├── performance-audit.md
-│   └── security-audit.md
-├── templates/
-│   ├── eslint-config.md
-│   ├── eslint-config.json
-│   └── project-structure/
-│       └── README.md
 └── references/
-    └── interview-questions.md
+    ├── architecture.md
+    ├── code-review.md
+    ├── eslint-config.md
+    ├── migration.md
+    ├── performance.md
+    ├── project-structure.md
+    ├── rxjs.md
+    ├── security.md
+    └── testing.md
 ```
 
 ## How Agents Should Use It
@@ -55,23 +41,21 @@ Start with `SKILL.md`. It defines the role, response style, architectural defaul
 
 Load only the focused resource needed for the task:
 
-- Use `prompts/architecture.md` for feature boundaries, standalone design, shared libraries, and application structure.
-- Use `prompts/performance.md` for rendering, bundle size, forms, memory, SSR, hydration, and change-detection concerns.
-- Use `prompts/security.md` for auth, authorization, CSP, XSS, CSRF, secure storage, and sensitive data handling.
-- Use `prompts/testing.md` for unit testing, integration testing, coverage standards, and CI gates.
-- Use `prompts/rxjs.md` for stream design, operator choice, cancellation, retry behavior, and async orchestration.
-- Use `prompts/migration.md` for upgrades, modernization, deprecated APIs, and rollout planning.
-- Use `checklists/` for review and audit tasks.
-- Use `examples/` for Markdown examples that explain implementation patterns without storing standalone code files.
-- Use `templates/` for project structure and ESLint guidance.
-- Use `references/interview-questions.md` only as raw background when the focused resources are not enough.
+- Use `references/architecture.md` for feature boundaries, standalone design, shared libraries, and application structure.
+- Use `references/performance.md` for rendering, bundle size, forms, memory, SSR, hydration, and change-detection concerns.
+- Use `references/security.md` for auth, authorization, CSP, XSS, CSRF, secure storage, and sensitive data handling.
+- Use `references/testing.md` for unit testing, integration testing, coverage standards, and CI gates.
+- Use `references/rxjs.md` for stream design, operator choice, cancellation, retry behavior, and async orchestration.
+- Use `references/migration.md` for upgrades, modernization, deprecated APIs, and rollout planning.
+- Use `references/code-review.md` for review tasks and `references/eslint-config.md` for linting guidance.
+- Use `references/project-structure.md` for project structure guidance.
 
 ## Production Standards
 
 - Keep `SKILL.md` concise and route deeper material to focused Markdown files.
-- Keep examples in Markdown so agents understand the reasoning, pattern, trade-offs, and review intent.
-- Keep reusable machine-readable configuration, such as `templates/eslint-config.json`, alongside explanatory Markdown.
-- Do not duplicate the raw reference content across the bundle unless it improves agent behavior.
+- Keep all supporting resources inside the single `references/` folder.
+- Keep implementation examples inside their relevant reference files so agents get the pattern, trade-offs, and review intent in one place.
+- Do not duplicate raw source content across the bundle unless it improves agent behavior.
 - Keep the language agent-neutral so the skill can be used across AI agent platforms.
 
 ## Validation
@@ -80,6 +64,6 @@ Before publishing, validate that:
 
 - `SKILL.md` has valid YAML frontmatter with only `name` and `description`.
 - Resource paths referenced by `SKILL.md` exist.
-- Markdown examples remain in `examples/`.
-- JSON templates parse successfully.
+- The root has only one resource subfolder: `references/`.
+- Implementation examples remain embedded in their relevant reference files.
 - Production-facing documentation remains agent-neutral.

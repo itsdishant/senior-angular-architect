@@ -34,4 +34,3 @@ src/
 - `ui` owns presentational components with narrow inputs and outputs.
 - `shared` is for generic code used by multiple features today.
 - Keep route declarations close to feature shells.
-
