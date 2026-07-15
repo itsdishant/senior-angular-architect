@@ -26,6 +26,7 @@ senior-angular-architect/
 └── references/
     ├── architecture.md
     ├── code-review.md
+    ├── design-patterns.md
     ├── eslint-config.md
     ├── migration.md
     ├── performance.md
@@ -47,6 +48,7 @@ Load only the focused resource needed for the task:
 - Use `references/testing.md` for unit testing, integration testing, coverage standards, and CI gates.
 - Use `references/rxjs.md` for stream design, operator choice, cancellation, retry behavior, and async orchestration.
 - Use `references/migration.md` for upgrades, modernization, deprecated APIs, and rollout planning.
+- Use `references/design-patterns.md` for structural patterns such as the Facade pattern in Angular.
 - Use `references/code-review.md` for review tasks and `references/eslint-config.md` for linting guidance.
 - Use `references/project-structure.md` for project structure guidance.
 

@@ -1,6 +1,19 @@
 ---
 name: senior-angular-architect
 description: Senior Angular architecture guidance for enterprise Angular applications. Use when an AI agent needs to design, review, optimize, secure, test, migrate, or govern Angular applications, including standalone-first architecture, signals, RxJS, NgRx/ComponentStore, SSR, zoneless readiness, module boundaries, and production code quality.
+metadata:
+  category: frontend
+  focus:
+    - architecture
+    - performance
+    - security
+    - testing
+    - migration
+  stack:
+    - angular
+    - rxjs
+    - typescript
+    - signals
 ---
 
 # Senior Angular Architect
@@ -23,16 +36,16 @@ Be opinionated, but show alternatives when the choice has meaningful trade-offs.
 
 Load only the files relevant to the user request:
 
-- Architecture, module boundaries, feature structure, standalone design, or shared libraries: `references/architecture.md`
-- Performance, change detection, bundles, lists, forms, memory, SSR/hydration: `references/performance.md`
-- Security, auth, RBAC, CSP, XSS, CSRF, secure storage: `references/security.md`
-- Unit testing, integration testing, test strategy, CI gates, and coverage standards: `references/testing.md`
-- RxJS streams, operator choice, cancellation, and async error handling: `references/rxjs.md`
-- Angular upgrades, modernization, legacy migration, technical debt sequencing: `references/migration.md`
-- Review tasks: load `references/code-review.md` and any relevant domain reference.
-- Audit tasks: load `references/performance-audit.md` or `references/security-audit.md`.
-- Migration planning: load `references/migration-checklist.md`.
-- Project setup or structure requests: load `references/project-structure.MD` or `references/eslint-config.md`.
+| When you need                                                                  | Load                                                               | Purpose                                                           |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------ | ----------------------------------------------------------------- |
+| Architecture, module boundaries, feature structure, or standalone design       | `references/architecture.md`                                       | Shared libraries, layering, app structure, and feature boundaries |
+| Performance, change detection, bundles, lists, forms, memory, or SSR/hydration | `references/performance.md`                                        | Rendering, runtime, bundle, form, and memory guidance             |
+| Security, auth, RBAC, CSP, XSS, CSRF, or secure storage                        | `references/security.md`                                           | Security posture, route protection, and safe data handling        |
+| Unit testing, integration testing, strategy, CI gates, or coverage             | `references/testing.md`                                            | Test planning and quality standards                               |
+| RxJS streams, operator choice, cancellation, or async error handling           | `references/rxjs.md`                                               | Stream orchestration and reactive patterns                        |
+| Angular upgrades, modernization, migration, or technical debt sequencing       | `references/migration.md`                                          | Version upgrades and rollout planning                             |
+| Review tasks                                                                   | `references/code-review.md` and any relevant domain reference      | Architectural review and team standards                           |
+| Project setup or structure requests                                            | `references/project-structure.md` or `references/eslint-config.md` | Scaffold structure and lint conventions                           |
 
 ## Architectural Defaults
 
