@@ -1,24 +1,24 @@
-# Angular Performance Guidance and Audit Checklist
+# Angular performance guidance and audit checklist
 
-Use this for slow rendering, large lists, bundle size, forms, SSR/hydration, memory leaks, and change-detection issues.
+Use this when you are dealing with slow rendering, large lists, bundle size, forms, SSR/hydration, memory leaks, or change detection.
 
-## Default Position
+## Default position
 
 - Design components to work with `ChangeDetectionStrategy.OnPush`.
 - Prefer immutable input updates and stable references.
 - Use route-level lazy loading and `@defer` for non-critical UI.
-- Measure before and after: Angular DevTools, Chrome Performance, Lighthouse, bundle analyzer, and heap snapshots.
+- Measure before and after with Angular DevTools, Chrome Performance, Lighthouse, bundle analyzer, and heap snapshots.
 
-## Common Fixes
+## Common fixes
 
-- Large lists: CDK virtual scrolling, pagination, `trackBy` or `@for (...; track ...)`, and stable item view models.
-- Large forms: nested components, typed reactive forms, `updateOn: 'blur'`, debounced expensive validation, and async validator cancellation.
-- Bundle size: lazy routes, remove duplicate libraries, replace Moment.js, and import from tree-shakable entry points.
-- Memory leaks: prefer `async` pipe, `takeUntilDestroyed`, teardown intervals, and inspect detached DOM nodes.
+- Large lists: CDK virtual scroll, pagination, `trackBy` or `@for (...; track ...)`, stable item view models.
+- Large forms: nested components, typed reactive forms, `updateOn: 'blur'`, debounced expensive validation, async validator cancellation.
+- Bundle size: lazy routes, remove duplicate libraries, replace Moment.js, use tree-shakable imports.
+- Memory leaks: use `async` pipe, `takeUntilDestroyed`, teardown intervals, and inspect detached DOM nodes.
 
-## Large Reactive Form Pattern
+## Large reactive form pattern
 
-Use this when a user asks how to improve a large Angular reactive form with many controls, validators, or calculated values.
+Use this when a feature asks how to make a large reactive form faster or less noisy.
 
 ```typescript
 @Component({
@@ -85,26 +85,26 @@ export class OrderLinesFormComponent {
 }
 ```
 
-Architect guidance:
+Guidance:
 
 - Split the form into focused child components with stable inputs.
-- Use typed reactive forms and avoid `any` in form value handling.
+- Use typed reactive forms and avoid `any` in form values.
 - Prefer `updateOn: 'blur'` for expensive or noisy controls.
 - Debounce or batch expensive derived calculations.
 - Track repeated controls by stable IDs.
-- Keep validation rules close to the form model and move business workflows into services.
+- Keep validation rules close to the form model and move workflow logic into services.
 - Test dynamic controls, async validators, disabled states, error states, and calculated values.
-- Avoid rebuilding form arrays during normal value changes.
-- Avoid template methods that recompute totals or validation state on every change-detection pass.
-- Use async validators with cancellation behavior for server-backed checks.
-- Consider progressive disclosure for very large forms: steps, sections, or lazy-rendered panels.
+- Don’t rebuild form arrays during normal changes.
+- Avoid template methods that recompute totals or validation on every check.
+- Use async validators with cancellation for server-backed checks.
+- Consider progressive disclosure for very large forms: steps, sections, or lazy panels.
 
-## Performance Audit Checklist
+## Performance audit checklist
 
 ### Measure
 
-- Capture baseline Lighthouse, Angular DevTools, Chrome Performance, and bundle analyzer output.
-- Identify whether the bottleneck is network, JavaScript parse/execute, rendering, change detection, memory, or API latency.
+- Capture baseline data with Lighthouse, Angular DevTools, Chrome Performance, and bundle analyzer.
+- Identify whether the bottleneck is network, parse/execute, rendering, change detection, memory, or API latency.
 - Test on representative lower-end devices.
 
 ### Rendering
@@ -121,16 +121,16 @@ Architect guidance:
 - Remove duplicate heavy dependencies.
 - Prefer tree-shakable imports.
 
-### Runtime and Memory
+### Runtime and memory
 
-- Tear down subscriptions, intervals, observers, and other long-lived browser resources.
+- Tear down subscriptions, intervals, observers, and other browser resources.
 - Throttle or buffer high-frequency streams.
 - Guard browser APIs in SSR/hydrated code.
 - Compare heap snapshots for detached DOM nodes.
 
-## Production Warnings
+## Production warnings
 
 - Template functions and getters can become hot paths.
-- Impure pipes run too often; use pure pipes by default.
-- `shareReplay` without reset/refCount strategy can retain stale data.
-- SSR code must guard browser-only APIs such as `window`, `document`, and storage.
+- Impure pipes should be avoided.
+- `shareReplay` without reset/refCount can keep stale data.
+- SSR code must guard browser-only APIs like `window`, `document`, and storage.

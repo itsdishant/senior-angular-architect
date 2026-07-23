@@ -1,6 +1,6 @@
-# Recommended Angular Project Structure
+# Recommended Angular project structure
 
-Use this as a starting point for enterprise Angular applications. Adjust names to match business domains.
+Use this as a starting point for enterprise Angular apps. Rename folders to match your business domains.
 
 ```text
 src/
@@ -28,9 +28,9 @@ src/
 
 ## Rules
 
-- `core` is app-wide infrastructure and should not depend on feature code.
+- `core` is app-wide infrastructure and must not depend on feature code.
 - `features/<domain>` owns routed screens and domain workflows.
-- `data-access` owns API clients, DTO mapping, feature stores, and persistence concerns.
+- `data-access` owns API clients, DTO mapping, feature stores, and persistence.
 - `ui` owns presentational components with narrow inputs and outputs.
-- `shared` is for generic code used by multiple features today.
+- `shared` is for genuinely generic code used by multiple features today.
 - Keep route declarations close to feature shells.

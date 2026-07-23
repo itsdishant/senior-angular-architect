@@ -2,33 +2,33 @@
 
 ## Architecture
 
-- Feature boundaries are clear and imports do not cross into feature internals.
-- Components are small, focused, and free of business workflow logic.
-- Shared utilities are genuinely reusable and not a dumping ground.
-- Public APIs are typed, narrow, and documented by usage.
+- Feature boundaries should be clear and imports should not cross into feature internals.
+- Components should be small, focused, and free of business workflow logic.
+- Shared utilities should be genuinely reusable, not a dumping ground.
+- Public APIs should be typed, narrow, and documented by how they are used.
 
 ## Angular
 
-- New code uses standalone APIs unless there is a compatibility reason not to.
-- Templates avoid expensive function calls and unstable object creation.
-- Inputs are treated immutably and are OnPush-compatible.
-- Subscriptions use `async` pipe, `takeUntilDestroyed`, or explicit teardown.
+- New code should use standalone APIs unless compatibility prevents it.
+- Templates should avoid expensive functions and unstable object creation.
+- Inputs should remain immutable and work with OnPush.
+- Subscriptions should use the `async` pipe, `takeUntilDestroyed`, or explicit teardown.
 
 ## State and RxJS
 
-- Operator choice matches cancellation and ordering requirements.
-- Errors are handled where recovery is possible.
-- Shared state has a clear owner.
-- Signals and RxJS are not mixed without a clear boundary.
+- Operator choice should reflect cancellation and ordering requirements.
+- Handle errors where recovery is possible.
+- Shared state should have a clear owner.
+- Don’t mix Signals and RxJS without a clear boundary.
 
-## Security and Quality
+## Security and quality
 
 - No unsafe DOM writes or unnecessary sanitizer bypasses.
-- Authorization is enforced by APIs, not just route guards.
-- Tests cover critical paths, edge cases, and failure states.
-- Types avoid `any`; unknown values are narrowed.
+- Authorization should be enforced by APIs, not just route guards.
+- Tests should cover critical paths, edge cases, and failure states.
+- Avoid `any`; use `unknown` and narrow it before use.
 
-## Anti-Patterns to Catch
+## Anti-patterns to catch
 
 ### Subscribing without teardown
 
@@ -46,7 +46,7 @@ this.service.data$
   });
 ```
 
-Prefer the `async` pipe when the value is only consumed by the template.
+Prefer the `async` pipe when the value is only consumed in the template.
 
 ### Mutating inputs with OnPush
 
@@ -58,7 +58,7 @@ this.user.name = 'New Name';
 this.user = { ...this.user, name: 'New Name' };
 ```
 
-OnPush-compatible components should receive new object references when data changes.
+OnPush components should receive new references when data changes.
 
 ### Putting business logic in components
 
@@ -74,7 +74,7 @@ submit() {
 }
 ```
 
-Components should coordinate UI state and delegate business workflows to services or feature stores.
+Components should coordinate the UI and delegate workflows to services or stores.
 
 ### Using `any` as a default
 
@@ -87,4 +87,4 @@ data: User | null;
 payload: unknown;
 ```
 
-Use `unknown` for untrusted data and narrow it with type guards before use.
+Use `unknown` for untrusted data and narrow it with type guards.

@@ -1,23 +1,23 @@
 # Angular Design Patterns
 
-Use this reference when a feature needs a cleaner boundary between Angular components and a set of related services, APIs, or domain operations. The Facade pattern is especially useful when a component would otherwise need to coordinate several services directly.
+Use this guide when a feature needs a cleaner boundary between a component and several related services. The Facade pattern is useful when a component would otherwise manage multiple service calls itself.
 
-## Facade Pattern in Angular
+## Facade pattern in Angular
 
-The Facade pattern provides a simplified interface over a complex subsystem. Instead of letting a component call multiple services and stitch responses together itself, a facade service owns that orchestration.
+A facade hides the details of a complex subsystem behind one service. The component asks the facade for a view model instead of calling several services directly.
 
 ### Why use it
 
-- Keep components focused on presentation and user interaction.
-- Hide service coordination, HTTP sequencing, and data shaping behind a single API.
-- Reduce coupling between the component and the internal implementation of the subsystem.
-- Make it easier to change underlying services without updating every consumer.
+- Keep components focused on UI and user interaction.
+- Move service coordination, HTTP sequencing, and data mapping into one place.
+- Reduce coupling to the subsystem implementation.
+- Let the facade change without forcing updates in every component.
 
 ### Typical shape
 
 - Client: the component or feature that needs data.
-- Facade: a service that exposes a simple method for the client.
-- Subsystem: multiple services such as user, product, and category services.
+- Facade: a service that exposes a small API.
+- Subsystem: several services such as user, product, and category services.
 
 ### Example: product catalog facade
 
@@ -107,24 +107,19 @@ export class FacadeComponent {
 
 ### Benefits in practice
 
-- The component does not need to know how products, categories, and users are loaded.
-- The facade can later add caching, retry logic, or mapping without changing the component.
-- Subsystems can evolve independently as long as the facade contract remains stable.
+- The component does not need to know how the underlying services work.
+- The facade can add caching, retry logic, or mapping without changing the component.
+- The subsystem can evolve while the facade API stays stable.
 
-### Guidance for Angular teams
+### Guidance for teams
 
-- Use a facade when a component or feature depends on multiple services that are conceptually part of one workflow.
-- Keep the facade focused on one feature area; avoid turning it into a dumping ground for unrelated logic.
-- Prefer a small, explicit API over a large generic service.
-- Keep business orchestration in a service layer, while components remain UI-oriented.
+- Use a facade when a feature depends on multiple services and the flow belongs to one workflow.
+- Keep the facade focused; don’t let it become a grab bag of unrelated operations.
+- Prefer a small, explicit API over a generic service.
+- Keep business orchestration in service code and leave components to handle UI.
 
 ### When not to use it
 
-- For trivial screens that only need one service.
-- When the abstraction hides too much and makes the code harder to reason about.
-- When the logic is better expressed as a dedicated domain service or use case service.
-
-## Recommended reading
-
-- Use this pattern when a feature view needs a clean, high-level API over several collaborators.
-- Pair it with domain services, RxJS streams, and well-defined interfaces for large Angular applications.
+- For simple screens that only need one service.
+- When the abstraction hides too much and makes the code harder to understand.
+- When the logic belongs in a dedicated domain service or use-case service.

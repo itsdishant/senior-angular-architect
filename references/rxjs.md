@@ -1,18 +1,18 @@
-# RxJS Guidance
+# RxJS guidance
 
-Use this for Angular async orchestration, stream design, operator choice, cancellation, retry behavior, caching, and memory safety.
+Use this for Angular async workflows, stream design, operator choice, cancellation, retries, caching, and memory safety.
 
-## Default Position
+## Default position
 
-- Keep RxJS for events over time, HTTP orchestration, cancellation, retries, and stream composition.
+- Use RxJS for events over time, HTTP orchestration, cancellation, retries, and stream composition.
 - Use Signals for synchronous local state and derived UI state when they are simpler.
-- Prefer stream composition over nested subscriptions.
-- Prefer `takeUntilDestroyed` or the `async` pipe for subscription lifecycle.
+- Prefer composition over nested subscriptions.
+- Use `takeUntilDestroyed` or the `async` pipe for subscription cleanup.
 - Keep side effects visible with `tap`, `finalize`, or explicit service methods.
 
-## Essential Operators: Search Flow
+## Search flow pattern
 
-Use this pattern for typeahead, search boxes, filters, route reloads, and other "latest request wins" flows.
+This is the pattern for typeahead, search boxes, filters, route reloads, and other "latest request wins" cases.
 
 ```typescript
 @Injectable({ providedIn: 'root' })
@@ -50,17 +50,17 @@ export class ProductSearchFacade {
 }
 ```
 
-Review notes:
+Why it works:
 
-- `debounceTime` reduces noisy keystroke traffic.
-- `distinctUntilChanged` avoids duplicate requests.
-- `switchMap` cancels stale HTTP calls.
-- `catchError` keeps the outer search stream alive.
+- `debounceTime` cuts noisy keystroke traffic.
+- `distinctUntilChanged` avoids duplicate calls.
+- `switchMap` drops stale HTTP requests.
+- `catchError` keeps the search stream alive.
 - `finalize` resets loading on success, error, or cancellation.
 
-## Subject Types
+## Subject types
 
-Use Subjects deliberately. In Angular applications, a Subject is usually an event boundary, not a default state-management tool.
+Use Subjects intentionally. In Angular, a Subject is usually an event boundary, not the default state store.
 
 ```typescript
 export class SubjectTypeExamples {
@@ -73,7 +73,7 @@ export class SubjectTypeExamples {
   private readonly recentAuditSubject = new ReplaySubject<AuditEvent>(3);
   readonly recentAudit$ = this.recentAuditSubject.asObservable();
 
-  private readonly exportCompleteSubject = new AsyncSubject<ExportResult>();
+  private readonly exportCompleteSubject = new AsyncSubject<UploadResult>();
   readonly exportComplete$ = this.exportCompleteSubject.asObservable();
 
   submit(value: FormValue): void {
@@ -88,7 +88,7 @@ export class SubjectTypeExamples {
     this.recentAuditSubject.next(event);
   }
 
-  finishExport(result: ExportResult): void {
+  finishExport(result: UploadResult): void {
     this.exportCompleteSubject.next(result);
     this.exportCompleteSubject.complete();
   }
@@ -99,13 +99,13 @@ Decision rules:
 
 - Use `Subject` for fire-and-forget events.
 - Use `BehaviorSubject` only when new subscribers need the current value.
-- Use `ReplaySubject` for bounded history; always set a buffer size.
-- Use `AsyncSubject` for "emit final result on completion" workflows.
-- Prefer Signals or a feature store for UI state when no stream composition is needed.
+- Use `ReplaySubject` for bounded history; set a buffer size.
+- Use `AsyncSubject` for a final result emitted on completion.
+- Prefer Signals or a feature store for UI state when stream composition is not required.
 
-## Higher-Order Operators
+## Higher-order operators
 
-Operator choice should encode business semantics: cancel, parallelize, queue, or ignore.
+Pick operators based on what the workflow needs: cancel, parallelize, queue, or ignore.
 
 ```typescript
 @Injectable({ providedIn: 'root' })
@@ -145,14 +145,14 @@ export class OrderWorkflowService {
 
 Use:
 
-- `switchMap` when new input makes old work irrelevant.
-- `mergeMap` for independent work; set concurrency for large batches.
+- `switchMap` when newer input should cancel older work.
+- `mergeMap` for independent work; cap concurrency for large batches.
 - `concatMap` when order matters.
-- `exhaustMap` when repeated triggers must be ignored until the first completes.
+- `exhaustMap` when you want to ignore repeated triggers until the first completes.
 
-## Optimistic Update Workflow
+## Optimistic update workflow
 
-Use this when a user asks how to make Angular UI feel immediate while preserving data consistency.
+Use this when the UI should feel fast while keeping data consistent.
 
 ```typescript
 @Injectable({ providedIn: 'root' })
@@ -205,22 +205,22 @@ export class TaskStore {
 }
 ```
 
-Architect guidance:
+What to keep in mind:
 
-- Capture the current state before applying a local update.
-- Apply the optimistic UI change immediately.
-- Mark the affected entity as pending so the UI can disable repeat actions or show progress.
-- Replace the optimistic entity with the server response when the request succeeds.
-- Roll back to the captured state and surface a user-readable error when the request fails.
+- Capture the current state before applying the optimistic update.
+- Apply the UI change immediately.
+- Mark the entity as pending so the UI can disable repeated actions or show progress.
+- Replace the optimistic item with the server response when the request succeeds.
+- Roll back to the prior state and surface a clear error if it fails.
 - Clear pending state in a final teardown step.
-- Use `exhaustMap` at the trigger boundary for submit-like actions where repeats must be ignored while a request is active.
-- Use `switchMap` only when a newer action should cancel an older one.
-- Keep rollback logic in a store or service rather than scattering it across components.
-- Make optimistic behavior explicit in tests: success, failure rollback, pending state, and duplicate action handling.
+- Use `exhaustMap` for submit actions that must ignore duplicates while one request is active.
+- Use `switchMap` only when a newer action should cancel the old one.
+- Keep rollback handling in a store or service, not in the component.
+- Test optimistic behavior explicitly: success, rollback, pending state, and duplicate triggers.
 
-## Error Handling and Retry
+## Error handling and retry
 
-Handle errors at the level where the workflow can recover. Avoid killing long-lived UI streams.
+Handle errors where the workflow can recover. Don’t kill long-lived UI streams.
 
 ```typescript
 @Injectable({ providedIn: 'root' })

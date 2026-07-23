@@ -1,15 +1,15 @@
-# Testing Guidance
+# Testing guidance
 
-Use this for unit testing, integration testing, test strategy, CI quality gates, and review of Angular testing gaps.
+Use this for unit testing, integration testing, test strategy, CI gates, and reviewing Angular testing gaps.
 
-## Default Position
+## Default position
 
 - Test behavior and contracts, not Angular internals.
 - Keep unit tests fast and deterministic.
 - Use integration tests for guards, interceptors, effects, routed feature shells, and complex forms.
 - Add focused regression tests around permissions, error states, and critical workflows.
 
-## Coverage Priorities
+## Coverage priorities
 
 - Domain workflows and data transformations.
 - Guards, resolvers, interceptors, and error handling.
@@ -17,15 +17,15 @@ Use this for unit testing, integration testing, test strategy, CI quality gates,
 - Form validation, dynamic controls, async validators, and disabled states.
 - Permission-driven UI and denied-access paths.
 
-## CI Gates
+## CI gates
 
-- Lint and typecheck on every pull request.
-- Unit and focused integration tests on every pull request.
-- Focused regression tests for critical workflows before release.
-- Coverage thresholds should protect critical areas, not reward shallow tests.
+- Run lint and typecheck on every pull request.
+- Run unit and focused integration tests on every pull request.
+- Add focused regression tests for critical workflows before release.
+- Use coverage thresholds to protect important areas, not reward shallow tests.
 
-## Production Warnings
+## Production warnings
 
-- Avoid tests that assert component implementation details.
-- Avoid tests that depend on arbitrary waits or timing assumptions.
+- Avoid tests that assert implementation details.
+- Avoid tests that rely on arbitrary waits or timing.
 - Mock network at clear boundaries and keep contract drift visible.

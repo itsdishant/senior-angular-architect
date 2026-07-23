@@ -1,54 +1,55 @@
-# Angular Security Guidance and Audit Checklist
+# Angular security guidance and audit checklist
 
-Use this for authentication, authorization, RBAC, XSS, CSRF, CSP, secure storage, route protection, and frontend handling of sensitive data.
+Use this for auth, authorization, RBAC, XSS, CSRF, CSP, secure storage, route protection, and handling sensitive data in the frontend.
 
-## Default Position
+## Default position
 
 - Treat frontend authorization as UX gating, not a security boundary.
 - Enforce authorization on the API.
 - Prefer HttpOnly, Secure, SameSite cookies for session tokens when the backend supports them.
-- Use Angular template binding instead of manual DOM writes.
+- Use Angular binding instead of manual DOM writes.
 - Avoid `bypassSecurityTrust*` unless the source is trusted and sanitized upstream.
 
-## Required Design Checks
+## Required design checks
 
 - Authentication flow, refresh strategy, logout behavior, and session expiry.
-- Route guards for navigation and API authorization for data access.
+- Route guards for navigation and API authorization.
 - RBAC or ABAC mapping from claims to UI affordances.
 - CSRF protection for cookie-based auth.
 - CSP policy for script, style, frame, image, and connect sources.
-- Sensitive data handling in logs, local storage, session storage, errors, and analytics.
+- Sensitive data handling in logs, storage, errors, and analytics.
 
-## Security Audit Checklist
+## Security audit checklist
 
 ### Authentication
 
-- Token/session storage matches application risk.
-- Logout clears client state and invalidates server session when applicable.
-- Refresh flows handle expiry, replay, and failure.
+- Token/session storage should match the app risk.
+- Logout should clear client state and invalidate server sessions when needed.
+- Refresh flows should handle expiry, replay, and failure.
 
 ### Authorization
 
-- API enforces data access rules.
-- Route guards and UI checks match server-side permissions.
-- Denied states are tested and user-readable.
+- The API should enforce data access rules.
+- Route guards and UI checks should match server permissions.
+- Denied states should be tested and user-friendly.
 
-### Browser Security
+### Browser security
 
-- No unnecessary `bypassSecurityTrust*` usage.
-- Rich text is sanitized at ingestion and rendering.
-- CSP is defined and compatible with third-party scripts.
-- Cookie auth uses HttpOnly, Secure, SameSite, and CSRF protection.
+- Don’t use `bypassSecurityTrust*` unless the source is trusted.
+- Sanitize rich text at ingestion and when rendering.
+- Define CSP and make it compatible with third-party scripts.
+- Use HttpOnly, Secure, SameSite cookies plus CSRF protection for cookie auth.
 
-### Data Handling
+### Data handling
 
-- Sensitive values are not logged, persisted, or sent to analytics.
-- Error messages do not leak internals.
-- Dependencies and third-party widgets are reviewed for known risks.
+- Don’t log or persist sensitive values.
+- Don’t send secrets to analytics.
+- Don’t leak internals in error messages.
+- Review third-party widgets for script injection and CSP issues.
 
-## Production Warnings
+## Production warnings
 
-- Never rely on hidden buttons as authorization.
-- Never store long-lived bearer tokens in local storage for high-risk apps.
-- Sanitize rich text at ingestion and rendering.
+- Don’t rely on hidden buttons for authorization.
+- Don’t store long-lived bearer tokens in local storage for high-risk apps.
+- Sanitize rich text before rendering.
 - Review third-party widgets for script injection and CSP compatibility.

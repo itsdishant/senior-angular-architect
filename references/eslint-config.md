@@ -1,8 +1,8 @@
-# ESLint Configuration Standards
+# ESLint configuration standards
 
-Use this when an agent needs to recommend, explain, or scaffold baseline Angular ESLint rules. This template is based on the flat ESLint configuration used by the lifestyle-stores Angular project.
+Use this file when you need to recommend or scaffold a baseline Angular ESLint setup. It is based on a flat config style and covers TypeScript, Angular templates, and unused imports.
 
-## Recommended Flat Config
+## Recommended flat config
 
 ```javascript
 // @ts-check
@@ -73,9 +73,9 @@ module.exports = defineConfig([
 
 ## Purpose
 
-- Use the flat ESLint config format for modern Angular projects.
-- Combine base JavaScript, TypeScript, stylistic TypeScript, and Angular TypeScript recommendations.
-- Process inline Angular templates in TypeScript components.
-- Apply Angular template recommendations and accessibility checks for HTML files.
-- Enforce Angular selector conventions with `app` as the default prefix.
-- Prefer `eslint-plugin-unused-imports` for removing dead imports and warning on unused variables.
+- Use flat ESLint config for modern Angular projects.
+- Combine JS, TypeScript, and Angular ESLint recommendations.
+- Process inline Angular templates inside component files.
+- Apply template rules and accessibility checks for HTML.
+- Enforce selector conventions with `app` as the default prefix.
+- Use `eslint-plugin-unused-imports` to remove dead imports and warn on unused symbols.

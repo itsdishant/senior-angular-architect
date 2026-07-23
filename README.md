@@ -1,24 +1,23 @@
 # Senior Angular Architect
 
-An AI-agent skill for senior-level Angular architecture guidance. It helps agents give production-focused recommendations for Angular application design, performance, security, state management, testing strategy, migration planning, and team governance.
+A set of documents for agents that answer senior Angular architecture questions. It covers app structure, performance, security, state, testing, migration, and team practices.
 
 ## Purpose
 
-This skill represents a senior Angular architect with deep hands-on experience building enterprise Angular applications. It is designed for agent use in architecture reviews, technical planning, modernization work, production readiness reviews, and team-standard guidance.
+This repo captures the guidance a senior Angular architect would use when reviewing or advising on enterprise Angular work.
 
-The skill emphasizes:
+It covers:
 
-- **Architecture Design**: Feature structure, module boundaries, shared library ownership, and application layering.
-- **Performance Optimization**: Change detection, bundle optimization, large lists, large forms, runtime performance, and memory safety.
-- **Security**: XSS and CSRF prevention, authentication, authorization, CSP, secure storage, and safe data flow.
-- **State Management**: Signals, RxJS, NgRx, ComponentStore, and service-based state patterns.
-- **Testing Strategy**: Unit testing, integration testing, coverage standards, and CI quality gates.
-- **RxJS Mastery**: Operator choice, cancellation, retry behavior, error handling, and async orchestration.
-- **Modern Angular**: Standalone APIs, typed forms, control flow, deferred views, SSR, hydration, and zoneless-ready design.
-- **Migration & Upgrades**: Angular version upgrades, legacy modernization, technical debt sequencing, and rollout planning.
-- **Team Leadership**: Code quality, review standards, onboarding, conventions, and architectural governance.
+- **Architecture design**: feature boundaries, shared libraries, app layers
+- **Performance**: change detection, bundle size, large forms, runtime cost
+- **Security**: auth, authorization, CSP, XSS, CSRF, secure storage
+- **State**: Signals, RxJS, NgRx, ComponentStore, service-driven patterns
+- **Testing**: unit tests, integration tests, coverage, CI gates
+- **Modern Angular**: standalone components, typed forms, control flow, SSR, hydration, zoneless-ready design
+- **Migration**: Angular upgrades, legacy modernization, technical debt
+- **Team practices**: code review standards, onboarding, conventions
 
-## Repository Structure
+## Repository structure
 
 ```text
 senior-angular-architect/
@@ -36,37 +35,35 @@ senior-angular-architect/
     └── testing.md
 ```
 
-## How Agents Should Use It
+## How agents should use it
 
-Start with `SKILL.md`. It defines the role, response style, architectural defaults, review heuristics, usage guidelines, and routing rules.
+Start with `SKILL.md` for the agent behavior and routing rules. Then open the specific reference for the task.
 
-Load only the focused resource needed for the task:
+- `references/architecture.md`: app structure, feature boundaries, standalone components, shared libraries
+- `references/performance.md`: rendering, bundles, large lists and forms, memory, SSR/hydration
+- `references/security.md`: auth, RBAC, CSP, XSS, CSRF, secure storage
+- `references/testing.md`: unit testing, integration testing, test strategy, CI gates
+- `references/rxjs.md`: observables, operator choice, cancellation, async error handling
+- `references/migration.md`: version upgrades, modernization, migration planning
+- `references/design-patterns.md`: architecture and boundary patterns
+- `references/code-review.md`: review heuristics and common issues
+- `references/eslint-config.md`: lint rules and Angular ESLint setup
+- `references/project-structure.md`: recommended project layout
 
-- Use `references/architecture.md` for feature boundaries, standalone design, shared libraries, and application structure.
-- Use `references/performance.md` for rendering, bundle size, forms, memory, SSR, hydration, and change-detection concerns.
-- Use `references/security.md` for auth, authorization, CSP, XSS, CSRF, secure storage, and sensitive data handling.
-- Use `references/testing.md` for unit testing, integration testing, coverage standards, and CI gates.
-- Use `references/rxjs.md` for stream design, operator choice, cancellation, retry behavior, and async orchestration.
-- Use `references/migration.md` for upgrades, modernization, deprecated APIs, and rollout planning.
-- Use `references/design-patterns.md` for structural patterns such as the Facade pattern in Angular.
-- Use `references/code-review.md` for review tasks and `references/eslint-config.md` for linting guidance.
-- Use `references/project-structure.md` for project structure guidance.
+## Standards
 
-## Production Standards
-
-- Keep `SKILL.md` concise and route deeper material to focused Markdown files.
-- Keep all supporting resources inside the single `references/` folder.
-- Keep implementation examples inside their relevant reference files so agents get the pattern, trade-offs, and review intent in one place.
-- Do not duplicate raw source content across the bundle unless it improves agent behavior.
-- Keep the language agent-neutral so the skill can be used across AI agent platforms.
+- Keep `SKILL.md` focused and point agents to the right reference file.
+- Keep supporting material in `references/`.
+- Put examples in the file where they belong.
+- Avoid duplicate documentation unless it helps clarity.
+- Keep the language practical and neutral.
 
 ## Validation
 
-Before publishing, validate that:
+Before publishing:
 
-- `SKILL.md` has valid YAML frontmatter with `name`, `description`, and `metadata` fields.
-- The metadata includes the expected category and stack values.
-- Resource paths referenced by `SKILL.md` exist.
-- The root has only one resource subfolder: `references/`.
-- Implementation examples remain embedded in their relevant reference files.
-- Production-facing documentation remains agent-neutral.
+- Check `SKILL.md` has valid YAML frontmatter with `name`, `description`, and `metadata`.
+- Confirm metadata includes category and stack values.
+- Verify referenced files exist.
+- Make sure the repo exposes only one reference folder.
+- Keep examples close to their guidance and avoid repeated content.
